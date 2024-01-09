@@ -1,0 +1,15 @@
+# Copyright 2022 Canonical Ltd.
+# See LICENSE file for licensing details.
+
+name: oauth-external-idp-integrator
+description: |
+  Charm used to integrate oauth enabled charms with external IdPs
+summary: |
+  Charm used to integrate oauth enabled charms with external IdPs
+
+docs: https://discourse.charmhub.io/t/oauth-external-idp-integrator-docs-index/12168
+
+provides:
+  oauth:
+    interface: oauth
+    limit: 1
