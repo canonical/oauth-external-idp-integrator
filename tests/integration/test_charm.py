@@ -26,7 +26,7 @@ def config() -> Dict:
         "jwks_endpoint": "https://www.googleapis.com/oauth2/v3/certs",
         "scope": "openid profile email",
         "token_endpoint": "https://oauth2.googleapis.com/token",
-        "userinfo_endpoint": "https://www.googleapis.com/oauth2/v1/userinfo"
+        "userinfo_endpoint": "https://www.googleapis.com/oauth2/v1/userinfo",
     }
 
 
