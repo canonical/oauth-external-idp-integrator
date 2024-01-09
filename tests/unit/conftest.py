@@ -1,7 +1,6 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
-import json
 from typing import Dict, Generator
 
 import pytest
@@ -19,7 +18,7 @@ def config() -> Dict:
         "jwks_endpoint": "https://www.googleapis.com/oauth2/v3/certs",
         "scope": "openid profile email",
         "token_endpoint": "https://oauth2.googleapis.com/token",
-        "userinfo_endpoint": "https://www.googleapis.com/oauth2/v1/userinfo"
+        "userinfo_endpoint": "https://www.googleapis.com/oauth2/v1/userinfo",
     }
 
 
@@ -30,5 +29,3 @@ def harness() -> Generator[Harness, None, None]:
     harness.begin_with_initial_hooks()
     yield harness
     harness.cleanup()
-
-

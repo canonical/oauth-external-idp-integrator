@@ -15,10 +15,8 @@ from ops.charm import (
     RelationBrokenEvent,
     RelationCreatedEvent,
 )
-
 from ops.main import main
 from ops.model import ActiveStatus, BlockedStatus
-
 
 logger = logging.getLogger(__name__)
 
@@ -41,31 +39,27 @@ class OAuthIdpIntegratorCharm(CharmBase):
         self.framework.observe(self.oauth.on.client_created, self._on_client_created)
 
     def _on_oauth_relation_created(self, event: RelationCreatedEvent) -> None:
-        """OAuth relation created handler."""
-
+        """Oauth relation created handler."""
         self._configure_relation()
         self._on_update_status(event)
 
     def _on_oauth_relation_broken(self, event: RelationBrokenEvent) -> None:
-        """OAuth relation broken handler."""
+        """Oauth relation broken handler."""
         self._on_update_status(event)
 
     def _on_client_created(self, event: ClientCreatedEvent) -> None:
-        """OAuth client created handler."""
-
+        """Oauth client created handler."""
         self.oauth.set_client_credentials_in_relation_data(
             event.relation_id, "client_id", "client_secret"
         )
 
     def _on_config_changed(self, event: ConfigChangedEvent) -> None:
         """Handle config change."""
-
         self._configure_relation()
         self._on_update_status(event)
 
     def _on_update_status(self, event: EventBase) -> None:
         """Set the unit status."""
-
         client_available = self._client_available()
         valid_config, key = self._validate_config()
         if not valid_config:
@@ -76,8 +70,7 @@ class OAuthIdpIntegratorCharm(CharmBase):
             self.unit.status = ActiveStatus()
 
     def _client_available(self):
-        """Check if the client relation is still available"""
-
+        """Check if the client relation is still available."""
         for relation in self.model.relations[OAuthIdpIntegratorCharm._relation_name]:
             if relation.data[self.app]:
                 return True
@@ -85,7 +78,6 @@ class OAuthIdpIntegratorCharm(CharmBase):
 
     def _configure_relation(self) -> None:
         """Configure oauth relation."""
-
         client_related = bool(self.model.relations[OAuthIdpIntegratorCharm._relation_name])
         valid_config, _ = self._validate_config()
         if client_related and valid_config:
@@ -101,7 +93,6 @@ class OAuthIdpIntegratorCharm(CharmBase):
 
     def _validate_config(self) -> (bool, str):
         """Validate the user provided config."""
-
         mandatory_fields = [
             "issuer_url",
             "authorization_endpoint",
@@ -114,7 +105,7 @@ class OAuthIdpIntegratorCharm(CharmBase):
         for key in mandatory_fields:
             if not self.config.get(key, None):
                 return False, key
-        return True, ''
+        return True, ""
 
 
 if __name__ == "__main__":
