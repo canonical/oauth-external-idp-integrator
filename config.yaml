@@ -1,0 +1,26 @@
+# Copyright 2022 Canonical Ltd.
+# See LICENSE file for licensing details.
+
+options:
+  authorization_endpoint:
+    description: The authorization endpoint
+    type: string
+  introspection_endpoint:
+    description: The token introspection endpoint
+    type: string
+  issuer_url:
+    description: The issuer url
+    type: string
+  jwks_endpoint:
+    description: The jwks validation endpoint
+    type: string
+  scope:
+    description: Space separated list of allowed scopes for the provider.
+    type: string
+    default: profile email address phone
+  token_endpoint:
+    description: Token endpoint
+    type: string
+  userinfo_endpoint:
+    description: User information endpoint
+    type: string
