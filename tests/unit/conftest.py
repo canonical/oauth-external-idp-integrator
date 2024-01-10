@@ -1,6 +1,8 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
+"""Charm unit test config."""
+
 from typing import Dict, Generator
 
 import pytest

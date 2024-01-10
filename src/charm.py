@@ -5,7 +5,7 @@
 """A Juju charm for integrating OAuth enabled charms with and external IdP."""
 
 import logging
-from typing import Any
+from typing import Any, List
 
 from charms.hydra.v0.oauth import ClientCreatedEvent, OAuthProvider
 from ops.charm import (
@@ -61,9 +61,9 @@ class OAuthIdpIntegratorCharm(CharmBase):
     def _on_update_status(self, event: EventBase) -> None:
         """Set the unit status."""
         client_available = self._client_available()
-        valid_config, key = self._validate_config()
-        if not valid_config:
-            self.unit.status = BlockedStatus(f"Missing required configuration: {key}")
+        missing_config = self._validate_config()
+        if bool(missing_config):
+            self.unit.status = BlockedStatus(f"Missing required configurations: {missing_config}")
         elif not client_available:
             self.unit.status = BlockedStatus("Missing client relation")
         else:
@@ -79,8 +79,8 @@ class OAuthIdpIntegratorCharm(CharmBase):
     def _configure_relation(self) -> None:
         """Configure oauth relation."""
         client_related = bool(self.model.relations[OAuthIdpIntegratorCharm._relation_name])
-        valid_config, _ = self._validate_config()
-        if client_related and valid_config:
+        missing_config = self._validate_config()
+        if client_related and not bool(missing_config):
             self.oauth.set_provider_info_in_relation_data(
                 issuer_url=self.config["issuer_url"],
                 authorization_endpoint=self.config["authorization_endpoint"],
@@ -91,8 +91,9 @@ class OAuthIdpIntegratorCharm(CharmBase):
                 scope=self.config["scope"],
             )
 
-    def _validate_config(self) -> (bool, str):
+    def _validate_config(self) -> List[str]:
         """Validate the user provided config."""
+        missing_fields = []
         mandatory_fields = [
             "issuer_url",
             "authorization_endpoint",
@@ -104,8 +105,8 @@ class OAuthIdpIntegratorCharm(CharmBase):
         ]
         for key in mandatory_fields:
             if not self.config.get(key, None):
-                return False, key
-        return True, ""
+                missing_fields.append(key)
+        return missing_fields
 
 
 if __name__ == "__main__":
