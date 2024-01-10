@@ -82,7 +82,7 @@ class OAuthIdpIntegratorCharm(CharmBase):
         valid_config, _ = self._validate_config()
         if client_related and valid_config:
             self.oauth.set_provider_info_in_relation_data(
-                issuer_url=self.config.get("issuer_url"),
+                issuer_url=self.config["issuer_url"],
                 authorization_endpoint=self.config["authorization_endpoint"],
                 token_endpoint=self.config["token_endpoint"],
                 introspection_endpoint=self.config["introspection_endpoint"],
