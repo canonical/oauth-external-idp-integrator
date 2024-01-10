@@ -7,7 +7,7 @@ description: |
 summary: |
   Charm used to integrate oauth enabled charms with external IdPs
 
-docs: https://discourse.charmhub.io/t/oauth-external-idp-integrator-docs-index/12168
+docs: https://discourse.charmhub.io/t/oauth-external-idp-integrator-docs-index/12922
 
 provides:
   oauth:
