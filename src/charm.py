@@ -50,7 +50,7 @@ class OAuthIdpIntegratorCharm(CharmBase):
     def _on_client_created(self, event: ClientCreatedEvent) -> None:
         """Oauth client created handler."""
         self.oauth.set_client_credentials_in_relation_data(
-            event.relation_id, "client_id", "client_secret"
+            event.relation_id, self.config.get("client_id"), self.config.get("client_secret")
         )
 
     def _on_config_changed(self, event: ConfigChangedEvent) -> None:
