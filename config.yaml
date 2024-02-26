@@ -24,3 +24,11 @@ options:
   userinfo_endpoint:
     description: User information endpoint
     type: string
+  client_id:
+    description: Client ID
+    default: default_client_id
+    type: string
+  client_secret:
+    description: Client secret (do not use this in production)
+    default: default_client_secret
+    type: string
