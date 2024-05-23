@@ -89,6 +89,7 @@ class OAuthIdpIntegratorCharm(CharmBase):
                 userinfo_endpoint=self.config["userinfo_endpoint"],
                 jwks_endpoint=self.config["jwks_endpoint"],
                 scope=self.config["scope"],
+                jwt_access_token=bool(self.config["jwt_access_token"]),
             )
 
     def _validate_config(self) -> List[str]:
