@@ -39,4 +39,14 @@ def test_oauth_relation(harness: Harness, config: Dict) -> None:
     assert isinstance(harness.charm.unit.status, ActiveStatus)
 
     app_data = harness.get_relation_data(relation_id, harness.charm.app)
-    assert app_data == config
+    print("XXX", app_data)
+    assert app_data == {
+        "authorization_endpoint": "https://accounts.google.com/o/oauth2/auth",
+        "introspection_endpoint": "https://oauth2.googleapis.com/tokeninfo",
+        "issuer_url": "https://accounts.google.com",
+        "jwks_endpoint": "https://www.googleapis.com/oauth2/v3/certs",
+        "scope": "openid profile email",
+        "token_endpoint": "https://oauth2.googleapis.com/token",
+        "userinfo_endpoint": "https://www.googleapis.com/oauth2/v1/userinfo",
+        "jwt_access_token": "False",
+    }
