@@ -3,32 +3,36 @@
 
 options:
   authorization_endpoint:
-    description: The authorization endpoint
+    description: The authorization endpoint.
     type: string
   introspection_endpoint:
-    description: The token introspection endpoint
+    description: The token introspection endpoint.
     type: string
   issuer_url:
-    description: The issuer url
+    description: The issuer url.
     type: string
   jwks_endpoint:
-    description: The jwks validation endpoint
+    description: The jwks validation endpoint.
     type: string
   scope:
     description: Space separated list of allowed scopes for the provider.
     type: string
     default: profile email address phone
   token_endpoint:
-    description: Token endpoint
+    description: Token endpoint.
     type: string
   userinfo_endpoint:
-    description: User information endpoint
+    description: User information endpoint.
     type: string
   client_id:
-    description: Client ID
+    description: Client ID.
     default: default_client_id
     type: string
   client_secret:
-    description: Client secret (do not use this in production)
+    description: Client secret (do not use this in production).
     default: default_client_secret
     type: string
+  jwt_access_token:
+    description: A flag indicating whether the OAuth provider supports jwt tokens.
+    default: false
+    type: boolean
