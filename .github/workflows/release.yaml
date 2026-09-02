@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Release charm to channel
-        uses: canonical/charming-actions/release-charm@631c2d944da2bd12430f1f3a954c8fffcf2385cd # 2.4.0
+        uses: canonical/charming-actions/release-charm@1753e0803f70445132e92acd45c905aba6473225 # 2.7.0
         with:
           credentials: ${{ secrets.CHARMCRAFT_CREDENTIALS }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
