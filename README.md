@@ -25,6 +25,31 @@ juju config oauth-external-idp-integrator \
 juju relate oauth-external-idp-integrator kafka-k8s
 ```
 
+### Client credentials
+
+For production, keep the client secret in a Juju user secret, not the legacy
+`client_secret` string option. This requires Juju 3.3 or later.
+
+Provision the secret from your secret manager (for example Vault) with a
+`client-secret` content key, grant it to `oauth-external-idp-integrator`, then
+configure only its URI:
+
+```commandline
+juju grant-secret <secret-uri> oauth-external-idp-integrator
+juju config oauth-external-idp-integrator \
+    client_id=<public-client-id> client-secret=<secret-uri>
+```
+
+The charm reads the credential through Juju's secret API and shares it with
+OAuth clients using the interface's relation-granted secret. The raw credential
+is never written to ordinary charm configuration or relation data.
+
+An unreadable secret, missing `client-secret` key, or blank value blocks the
+charm; it never falls back to `client_secret` when a secret URI is configured.
+Secret changes update the client credential, and `update-status` retries a grant
+that arrived after the configuration. The legacy option remains available for
+development when `client-secret` is unset.
+
 
 ## Contributing
 

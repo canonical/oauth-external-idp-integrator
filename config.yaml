@@ -29,9 +29,16 @@ options:
     default: default_client_id
     type: string
   client_secret:
-    description: Client secret (do not use this in production).
+    description: Legacy plaintext client secret for development only. Use client-secret in production.
     default: default_client_secret
     type: string
+  client-secret:
+    description: |
+      Juju secret URI containing a client-secret key. Grant the secret to this
+      application before configuring it. Requires Juju 3.3 or later.
+      Takes precedence over client_secret; an unreadable or invalid secret
+      blocks the charm rather than falling back to the plaintext option.
+    type: secret
   jwt_access_token:
     description: A flag indicating whether the OAuth provider supports jwt tokens.
     default: false
